@@ -4,4 +4,24 @@
     <h1>
         Tasks
     </h1>
+
+    {% if task_list %}
+        <div class="task-grid-list">
+            {% for task_group, tasks in grouped_tasks.items %}
+                {% for task in tasks %}
+                    {% block task_card %}
+                        {% include "includes/task_card.html" with task=task %}
+                    {% endblock %}
+                {% empty %}
+                {% endfor %}
+            {% endfor %}
+        </div>
+
+    {% else %}
+        <br>
+        <p class="text-color-grey">
+            No tasks
+        </p>
+    {% endif %}
+
 {% endblock %}
