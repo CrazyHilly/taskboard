@@ -1,0 +1,38 @@
+<a class="task-card-list {{ task.priority }}" href="{{ task.get_absolute_url }}">
+    <h6>
+        {{ task.pk }}: {{ task.name }}
+    </h6>
+
+    <p class="font-size-08">
+        Created: {{ task.created_at|date:"d.m.Y" }}
+        {% if task.updated_at %}
+            <br>
+            Updated: {{ task.updated_at|date:"d.m.Y" }}
+        {% endif %}
+    </p>
+
+    <p>
+        {% if task.due_by %}
+            <span class="semi-bold font-size-09 ">
+                Due by: 
+                <span class="{% if task.due_by <= today %}text-danger bold{% endif %}">
+                    {{ task.due_by|date:"d.m.Y" }}
+                </span>
+            </span>
+        {% endif %}
+        <br>
+        {% if task.status == "completed" %}
+            <span class="semi-bold font-size-09">
+                Completed: {{ task.completed_at|date:"d.m.Y" }}
+            </span>
+        {% endif %}
+    </p>
+
+    {% if task.tags.all %}
+        {% for tag in task.tags.all %}
+            <span class="font-size-09">
+                | {{ tag.name }} |
+            </span>
+        {% endfor %}
+    {% endif%}
+</a>
