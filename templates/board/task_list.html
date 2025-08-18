@@ -1,27 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>
-        Tasks
-    </h1>
+    <div class="container-fluid">
+        <div class="row">
+            {% for _, task_group in grouped_tasks.items %}
+                <div class="col-4 task-list-separator">
+                    <h5 class="mb-0 task-status">
+                        {{ task_group.status }}
+                    </h5>
 
-    {% if task_list %}
-        <div class="task-grid-list">
-            {% for task_group, tasks in grouped_tasks.items %}
-                {% for task in tasks %}
-                    {% block task_card %}
-                        {% include "includes/task_card.html" with task=task %}
-                    {% endblock %}
-                {% empty %}
-                {% endfor %}
+                    <div class="task-grid">
+                        {% for task in task_group.tasks %}
+                            {% block task_card %}
+                                {% include "includes/task_card.html" with task=task %}
+                            {% endblock %}
+                        {% empty %}
+                        {% endfor %}
+                    </div>
+                </div>
             {% endfor %}
         </div>
-
-    {% else %}
-        <br>
-        <p class="text-color-grey">
-            No tasks
-        </p>
-    {% endif %}
-
+    </div>
 {% endblock %}

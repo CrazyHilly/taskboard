@@ -1,38 +1,40 @@
-<a class="task-card-list {{ task.priority }}" href="{{ task.get_absolute_url }}">
-    <h6>
+<a class="task-card mt-1 mb-3 {{ task.get_priority_display }}" href="{{ task.get_absolute_url }}">
+    <h6 class="mb-2">
         {{ task.pk }}: {{ task.name }}
     </h6>
 
-    <p class="font-size-08">
-        Created: {{ task.created_at|date:"d.m.Y" }}
-        {% if task.updated_at %}
+    <div>
+        <div class="font-size-08">
+            Created: {{ task.created_at|date:"d.m.Y" }}
             <br>
-            Updated: {{ task.updated_at|date:"d.m.Y" }}
-        {% endif %}
-    </p>
+            {% if task.updated_at %}
+                Updated: {{ task.updated_at|date:"d.m.Y" }}
+            {% endif %}
+        </div>
 
-    <p>
         {% if task.due_by %}
-            <span class="semi-bold font-size-09 ">
+            <div class="semi-bold font-size-09 mt-2">
                 Due by: 
-                <span class="{% if task.due_by <= today %}text-danger bold{% endif %}">
+                <span class="{% if task.due_by <= today %}text-color-red bold{% endif %}">
                     {{ task.due_by|date:"d.m.Y" }}
                 </span>
-            </span>
+            </div>
         {% endif %}
-        <br>
+
         {% if task.status == "completed" %}
-            <span class="semi-bold font-size-09">
+            <div class="semi-bold font-size-09">
                 Completed: {{ task.completed_at|date:"d.m.Y" }}
-            </span>
+            </div>
         {% endif %}
-    </p>
+    </div>
 
     {% if task.tags.all %}
-        {% for tag in task.tags.all %}
-            <span class="font-size-09">
-                | {{ tag.name }} |
-            </span>
-        {% endfor %}
+        <div class="mt-2">
+            {% for tag in task.tags.all %}
+                <span class="font-size-09">
+                    | {{ tag.name }} |
+                </span>
+            {% endfor %}
+        </div>
     {% endif%}
 </a>
