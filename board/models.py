@@ -1,3 +1,4 @@
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
@@ -5,6 +6,9 @@ from django.utils import timezone
 
 class Tag(models.Model):
     name = models.CharField(max_length=20, unique=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Task(models.Model):
@@ -15,19 +19,19 @@ class Task(models.Model):
     ]
 
     TASK_PRIORITY_CHOICES = [
-        ("critical", "Very important"),
-        ("high", "Important"),
-        ("medium", "Normal"),
-        ("low", "Optional"),
+        (0, "critical"),
+        (1, "high"),
+        (2, "medium"),
+        (3, "low"),
     ]
 
     name = models.CharField(max_length=60)
-    priority = models.CharField(
-        max_length=20, choices=TASK_PRIORITY_CHOICES, default="medium"
+    priority = models.IntegerField(
+        choices=TASK_PRIORITY_CHOICES, 
+        default="2",
+        validators=[MinValueValidator(0), MaxValueValidator(3)]
         )
-    status = models.CharField(
-        max_length=20, choices=TASK_STATUS_CHOICES, default="new"
-        )
+    status = models.CharField(max_length=20, choices=TASK_STATUS_CHOICES, default="new")
 
     tags = models.ManyToManyField(Tag, related_name="tasks")
     description = models.TextField(max_length=5000, blank=True, null=True)
@@ -38,17 +42,18 @@ class Task(models.Model):
     due_by = models.DateTimeField(blank=True, null=True)
     
     def save(self, *args, **kwargs):
-        old_status = Task.objects.get(pk=self.pk)
-        if old_status != "completed" and self.status == "completed":
+        object = Task.objects.filter(pk=self.pk).first()
+        if object and object.status != "completed" and self.status == "completed":
             self.completed_at = timezone.now()
 
         if self.status in ("new", "active") and self.completed_at:
             self.completed_at = None
-
+        
+        self.full_clean()
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse("board:task-detail", args=[self.pk])
     
     class Meta:
-        ordering = [models.F("due_by").asc(nulls_last=True)]
+        ordering = ["priority", models.F("due_by").asc(nulls_last=True)]
