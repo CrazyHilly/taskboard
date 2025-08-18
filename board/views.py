@@ -12,9 +12,19 @@ class TaskListView(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({
-            "new_tasks": Task.objects.filter(status="new"),
-            "active_tasks": Task.objects.filter(status="active"),
-            "completed_tasks": Task.objects.filter(status="completed"),
+            "grouped_tasks": {
+            "new_tasks": {
+                "tasks": Task.objects.filter(status="new"), 
+                "status": "New"
+                },
+            "active_tasks": {
+                "tasks": Task.objects.filter(status="active"), 
+                "status": "In Progress"
+                },
+            "completed_tasks": {
+                "tasks": Task.objects.filter(status="completed"), 
+                "status": "Done"
+                }},
             "today": timezone.now()})
         return context
 
