@@ -15,7 +15,7 @@ class TaskListView(generic.ListView):
             "grouped_tasks": {
             "new_tasks": {
                 "tasks": Task.objects.filter(status="new"), 
-                "status": "New"
+                "status": "Open"
                 },
             "active_tasks": {
                 "tasks": Task.objects.filter(status="active"), 
@@ -25,12 +25,18 @@ class TaskListView(generic.ListView):
                 "tasks": Task.objects.filter(status="completed"), 
                 "status": "Done"
                 }},
-            "today": timezone.now()})
+            "today": timezone.now()
+            })
         return context
 
 
 class TaskDetailView(generic.DetailView):
     model = Task
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({"today": timezone.now()})
+        return context
 
 
 class TaskCreateView(generic.CreateView):
