@@ -10,6 +10,9 @@ class Tag(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ["name"]
+
 
 class Task(models.Model):
     TASK_STATUS_CHOICES = [
@@ -25,7 +28,7 @@ class Task(models.Model):
         (3, "low"),
     ]
 
-    name = models.CharField(max_length=60)
+    name = models.CharField(max_length=150)
     priority = models.IntegerField(
         choices=TASK_PRIORITY_CHOICES, 
         default="2",
@@ -49,6 +52,8 @@ class Task(models.Model):
         if self.status in ("new", "active") and self.completed_at:
             self.completed_at = None
         
+        self.name = self.name.capitalize()
+        
         self.full_clean()
         super().save(*args, **kwargs)
 
@@ -56,4 +61,4 @@ class Task(models.Model):
         return reverse("board:task-detail", args=[self.pk])
     
     class Meta:
-        ordering = ["priority", models.F("due_by").asc(nulls_last=True)]
+        ordering = ["priority", models.F("due_by").asc(nulls_last=True), "created_at"]
