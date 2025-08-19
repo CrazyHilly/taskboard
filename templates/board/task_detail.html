@@ -1,5 +1,167 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>{{ object.name }}</h1>
+    <h2 class="task-detail-heading ml-4">
+        {{ object.pk }}: {{ object.name }}
+    </h2>
+
+    <div class="ml-4">
+        {% if object.status == "new" %}
+            <a href="#" class="btn btn-primary">
+                START PROGRESS
+            </a>
+        {% elif object.status == "active" %}
+            <a href="#" class="btn btn-primary">
+                COMPLETE
+            </a>
+        {% elif object.status == "completed" %}
+            <a href="#" class="btn btn-primary">
+                REOPEN
+            </a>
+        {% endif %}
+    </div>
+
+    <table class="task-detail-table ml-4" style="width:100%">
+        <colgroup>
+            <col style="width:15%">
+            <col style="width:20%" class="task-list-separator">
+            <col style="width:15%">
+        </colgroup>
+
+        <tr>
+            <td>
+                Priority: 
+            </td>
+
+            <td class="{{ object.get_priority_display }}-text semi-bold">
+                {{ object.get_priority_display.title }}
+            </td>
+
+            <td class="pl-4">
+                Created: 
+            </td>
+
+            <td class="task-detail-cell-date">
+                {{ object.created_at|date:"d.m.Y, H:m" }}
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Status: 
+            </td>
+
+            <td>
+                <span class="btn status {{ object.status }}-status">
+                    {{ object.get_status_display }}
+                </span>
+            </td>
+
+            <td class="pl-4">
+                Updated: 
+            </td>
+
+            <td class="task-detail-cell-date">
+                {% if object.updated_at %}
+                    {{ object.updated_at|date:"d.m.Y, H:m" }}
+                {% endif %}
+            </td>
+        </tr>
+
+        <tr class="task-detail-row ">
+            <td class="task-detail-cell">
+                Tags: 
+            </td>
+
+            <td rowspan="2">
+                {% for tag in object.tags.all %}
+                    <span class="btn tag {{ tag.name }}-tag">
+                        {{ tag }}
+                    </span>
+                {% empty %}
+                {% endfor %}
+            </td>
+
+            <td class="pl-4">
+                Due by: 
+            </td>
+
+            <td class="task-detail-cell-date">
+                {% if object.due_by %}
+                    <span class="{% if object.due_by <= today %}text-color-red bold{% endif %}">
+                        {{ object.due_by|date:"d.m.Y, H:m" }}
+                    </span>
+                {% endif %}
+            </td>
+        </tr>
+
+        <tr>
+            <td></td>
+
+            <td class="pl-4">
+                Completed:
+            </td>
+
+            <td class="task-detail-cell-date">
+                {% if object.completed_at %}
+                    {{ object.completed_at|date:"d.m.Y, H:m" }}
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+
+    <ul class="task-detail-info ml-4">
+        <li>
+            Description:
+            <table class="task-detail-info-table">
+                <tr>
+                    {% if object.description %}
+                        <td>
+                            {{ object.desription }}
+                        </td>
+                    {% else %}
+                        <td class="empty">
+                            Description placeholder
+                        </td>
+                    {% endif %}
+                </tr>
+            </table>
+        </li>
+        <li>
+            Comments:
+            <table class="task-detail-info-table">
+                {% for comment in object.comments %}
+                    <tr>
+                        <td>
+                            {{ comment }}
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td class="empty">
+                            Comments placeholder
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </li>
+        <li>
+            History:
+            <table class="task-detail-info-table">
+                {% for entry in object.history %}
+                    <tr>
+                        <td>
+                            {{ entry }}
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td class="empty">
+                            History placeholder
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </li>
+    </ul>
 {% endblock %}
