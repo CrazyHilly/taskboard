@@ -1,5 +1,31 @@
 {% extends "base.html" %}
 
 {% block content %}
-    Tags
+    <h1 class="tag-heading">
+        Labels
+    </h1>
+
+    <table class="col-6 tag-table">
+        {% for tag in tag_list %}
+            <tr class="tag-row">
+                <td>
+                    <span class="empty {{ tag.name }}-tag">
+                        W
+                    </span>
+                    &nbsp;{{ tag }}
+                </td>
+                <td class="tag-update">
+                    <a href="#" class="btn tag-button">
+                        Update
+                    </a>
+                </td>
+                <td class="tag-delete">
+                    <a href="#" class="btn tag-button">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+        {% empty %}
+        {% endfor %}
+    </table>
 {% endblock %}
