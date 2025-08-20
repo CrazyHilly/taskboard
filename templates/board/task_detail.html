@@ -7,15 +7,15 @@
 
     <div class="ml-4">
         {% if object.status == "new" %}
-            <a href="#" class="btn btn-primary">
+            <a href="#" class="btn button">
                 START PROGRESS
             </a>
         {% elif object.status == "active" %}
-            <a href="#" class="btn btn-primary">
+            <a href="#" class="btn button">
                 COMPLETE
             </a>
         {% elif object.status == "completed" %}
-            <a href="#" class="btn btn-primary">
+            <a href="#" class="btn button">
                 REOPEN
             </a>
         {% endif %}

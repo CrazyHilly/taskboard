@@ -129,37 +129,6 @@ body, a, a:hover {
   box-shadow: none;
 }
 
-.btn-primary,
-.btn-primary:hover,
-.btn-primary:focus,
-.btn-primary:not(:disabled):not(.disabled):active:focus {
-  background-color: var(--button-color);
-  border: none;
-}
-
-.btn-primary:focus,
-.btn-primary:not(:disabled):not(.disabled):active:focus {
-  box-shadow: 0 0 0 .2rem var(--button-shadow-color);
-}
-
-/* .btn-secondary,
-.btn-secondary:hover,
-.btn-secondary:focus,
-.btn-secondary:not(:disabled):not(.disabled):active:focus {
-    background-color: var(--secondary-color);
-    border-color: var(--secondary-color);
-    opacity: 0.6;
-}
-
-.btn-secondary:focus,
-.btn-secondary:not(:disabled):not(.disabled):active:focus {
-    box-shadow: 0 0 0 .2rem var(--secondary-shadow-color);
-}
-
-.btn-secondary:hover {
-    opacity: 0.7;
-} */
-
 .button:hover, .button:focus {
   color: white;
   font-weight: 500;
@@ -167,27 +136,10 @@ body, a, a:hover {
   opacity: 0.85;
 }
 
-.button, .button:visited, .button:visited:hover {
+.button, .button:active {
   color: white;
   font-size: 1.1em;
   font-weight: 500;
-  background-color: var(--button-color);
-  opacity: 1;
-}
-
-.button:active {
-  color: white;
-  font-weight: 500;
-  background-color: var(--button-color);
-  opacity: 1;
-}
-
-.add-task-button {
-  color: white;
-  font-size: 1.4em;
-  font-weight: bold;
-  padding: 0 0 3pt;
-  width: 33pt;
   background-color: var(--button-color);
   opacity: 1;
 }
@@ -199,9 +151,12 @@ body, a, a:hover {
   opacity: 0.8;
 }
 
-.add-task-button:active {
+.add-task-button, .add-task-button:active {
   color: white;
+  font-size: 1.4em;
   font-weight: bold;
+  padding: 0 0 3pt;
+  width: 33pt;
   background-color: var(--button-color);
   opacity: 1;
 }
@@ -525,20 +480,20 @@ li .shield-icon {
 }
 
 .tag-button {
-  color: black;
-  font-size: 1.1em;
+  color: white;
+  font-size: 1em;
   background-color: var(--button-color);
-  opacity: 0.5;
+  opacity: 0.55;
 }
 
 .tag-button:hover, .tag-button:focus {
-  color: black;
+  color: white;
   background-color: var(--button-color);
-  opacity: 0.7;
+  opacity: 0.75;
 }
 
 .tag-button:active {
-  color: black;
+  color: white;
   background-color: var(--button-color);
   opacity: 1;
 }
