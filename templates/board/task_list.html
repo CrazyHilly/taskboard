@@ -5,11 +5,11 @@
         <div class="row">
             {% for _, task_group in grouped_tasks.items %}
                 <div class="col-4 task-list-separator">
-                    <h5 class="mb-0 task-status">
+                    <h4 class="task-status">
                         {{ task_group.status }}
-                    </h5>
+                    </h4>
 
-                    <div class="task-grid">
+                    <div class="task-card-grid">
                         {% for task in task_group.tasks %}
                             {% block task_card %}
                                 {% include "includes/task_card.html" with task=task %}

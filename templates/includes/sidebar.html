@@ -1,9 +1,9 @@
 <ul class="sidebar-nav">
   {% comment %} {% if user.is_authenticated %} {% endcomment %}
-    <li>
-      <a href="{% url 'board:task-create' %}">
-        +
-      </a>
+    <li class="sidebar-button">
+        <a href="{% url 'board:task-create' %}" class="btn add-task-button">
+            +
+        </a>
     </li>
     
     <li>
@@ -18,7 +18,7 @@
       <a href="{% url 'board:tag-list' %}"
          class="{% if request.resolver_match.view_name == 'board:tag-list' %}
                 sidebar-nav-active{% endif %}">
-        Tags
+        Labels
       </a>
     </li>
 </ul>

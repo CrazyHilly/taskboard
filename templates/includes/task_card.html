@@ -1,4 +1,4 @@
-<a class="task-card mt-1 mb-3 {{ task.get_priority_display }}" href="{{ task.get_absolute_url }}">
+<a class="task-card mt-1 mb-3 {{ task.get_priority_display }}-card" href="{{ task.get_absolute_url }}">
     <h6 class="mb-2">
         {{ task.pk }}: {{ task.name }}
     </h6>
@@ -29,10 +29,10 @@
     </div>
 
     {% if task.tags.all %}
-        <div class="mt-2">
+        <div>
             {% for tag in task.tags.all %}
-                <span class="font-size-09">
-                    | {{ tag.name }} |
+                <span class="font-size-09 btn tag {{ tag.name }}-tag">
+                    {{ tag.name }}
                 </span>
             {% endfor %}
         </div>
