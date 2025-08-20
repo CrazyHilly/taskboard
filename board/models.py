@@ -1,3 +1,4 @@
+from tkinter import CASCADE
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.urls import reverse
@@ -62,3 +63,13 @@ class Task(models.Model):
     
     class Meta:
         ordering = ["priority", models.F("due_by").asc(nulls_last=True), "created_at"]
+
+
+class Comment(models.Model):
+    task = models.ForeignKey(
+        Task, on_delete=models.CASCADE, related_name="comments", 
+        default=None, blank=True, null=True
+        )
+    comment = models.TextField(max_length=5000)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
