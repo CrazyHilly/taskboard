@@ -117,7 +117,7 @@
                 <tr>
                     {% if object.description %}
                         <td>
-                            {{ object.desription }}
+                            {{ object.description|linebreaksbr }}
                         </td>
                     {% else %}
                         <td class="empty">
@@ -127,37 +127,25 @@
                 </tr>
             </table>
         </li>
+
         <li>
             Comments:
             <table class="task-detail-info-table">
-                {% for comment in object.comments %}
+                {% for comment in object.comments.all %}
                     <tr>
-                        <td>
-                            {{ comment }}
+                        <td class="{% if not forloop.last %}pb-4{% endif %}">
+                            >> 
+                            <span class="font-italic text-underline font-size-07">
+                                <u>{{ comment.created_at }}</u>
+                            </span>
+                            <br>
+                            {{ comment.comment|linebreaksbr }}
                         </td>
                     </tr>
                 {% empty %}
                     <tr>
                         <td class="empty">
                             Comments placeholder
-                        </td>
-                    </tr>
-                {% endfor %}
-            </table>
-        </li>
-        <li>
-            History:
-            <table class="task-detail-info-table">
-                {% for entry in object.history %}
-                    <tr>
-                        <td>
-                            {{ entry }}
-                        </td>
-                    </tr>
-                {% empty %}
-                    <tr>
-                        <td class="empty">
-                            History placeholder
                         </td>
                     </tr>
                 {% endfor %}
