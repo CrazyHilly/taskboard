@@ -72,4 +72,6 @@ class Comment(models.Model):
         )
     comment = models.TextField(max_length=5000)
     created_at = models.DateTimeField(auto_now_add=True)
-    
+
+    class Meta:
+        ordering = ["-created_at"]
