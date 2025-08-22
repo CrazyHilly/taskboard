@@ -37,7 +37,7 @@ class Task(models.Model):
         )
     status = models.CharField(max_length=20, choices=TASK_STATUS_CHOICES, default="new")
 
-    tags = models.ManyToManyField(Tag, related_name="tasks")
+    tags = models.ManyToManyField(Tag, related_name="tasks", blank=True, null=True)
     description = models.TextField(max_length=5000, blank=True, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
