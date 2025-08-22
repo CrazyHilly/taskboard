@@ -20,11 +20,13 @@
                     </span>
                     &nbsp;{{ tag }}
                 </td>
+
                 <td class="tag-update">
-                    <a href="#" class="btn tag-button">
+                    <a href="{% url 'board:tag-update' pk=tag.pk %}" class="btn tag-button">
                         Update
                     </a>
                 </td>
+
                 <td class="tag-delete">
                     <a href="#" class="btn tag-button">
                         Delete
