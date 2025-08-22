@@ -11,7 +11,7 @@
         </a>
     </div>
 
-    <table class="col-6 tag-table content">
+    <table class="col-5 tag-table content">
         {% for tag in tag_list %}
             <tr class="tag-row">
                 <td>
@@ -28,7 +28,7 @@
                 </td>
 
                 <td class="tag-delete">
-                    <a href="#" class="btn tag-button">
+                    <a href="{% url 'board:tag-delete' pk=tag.pk %}" class="btn tag-button">
                         Delete
                     </a>
                 </td>

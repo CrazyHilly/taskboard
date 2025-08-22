@@ -1,7 +1,7 @@
 from django.urls import path
 
-from board.views import TagCreateView, TagListView, TagUpdateView, TaskCreateView, \
-                        TaskDetailView, TaskListView
+from board.views import TagCreateView, TagDeleteView, TagListView, TagUpdateView, \
+                        TaskDetailView, TaskListView, TaskCreateView
 
 
 urlpatterns = [
@@ -11,6 +11,7 @@ urlpatterns = [
     path("tags/", TagListView.as_view(), name="tag-list"),
     path("tags/new/", TagCreateView.as_view(), name="tag-create"),
     path("tags/<int:pk>/update/", TagUpdateView.as_view(), name="tag-update"),
+    path("tags/<int:pk>/delete/", TagDeleteView.as_view(), name="tag-delete"),
 ]
 
 app_name = "board"
