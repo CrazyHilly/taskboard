@@ -2,7 +2,7 @@ from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views import generic
 
-from board.forms import TaskCreateForm
+from board.forms import TaskCreateForm, TagCreateForm
 from board.models import Task, Tag
 
 
@@ -47,3 +47,15 @@ class TaskCreateView(generic.CreateView):
 
 class TagListView(generic.ListView):
     model = Tag
+
+
+class TagCreateView(generic.CreateView):
+    model = Tag
+    form_class = TagCreateForm
+    success_url = reverse_lazy("board:tag-list")
+
+
+class TagUpdateView(generic.UpdateView):
+    model = Tag
+    form_class = TagCreateForm
+    success_url = reverse_lazy("board:tag-list")
