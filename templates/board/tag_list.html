@@ -1,15 +1,21 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1 class="tag-heading">
+    <h1 class="task-detail-heading">
         Labels
     </h1>
 
-    <table class="col-6 tag-table">
+    <div class="ml-4">
+        <a href="{% url "board:tag-create" %}" class="btn button">
+            Add label
+        </a>
+    </div>
+
+    <table class="col-6 tag-table content">
         {% for tag in tag_list %}
             <tr class="tag-row">
                 <td>
-                    <span class="empty {{ tag.name }}-tag">
+                    <span class="empty tag-{{ tag.color }}">
                         W
                     </span>
                     &nbsp;{{ tag }}
