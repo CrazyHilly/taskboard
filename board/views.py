@@ -57,5 +57,5 @@ class TagCreateView(generic.CreateView):
 
 class TagUpdateView(generic.UpdateView):
     model = Tag
-    form_class = TagCreateForm
+    fields = "__all__"
     success_url = reverse_lazy("board:tag-list")
