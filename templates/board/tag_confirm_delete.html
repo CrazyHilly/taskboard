@@ -16,8 +16,8 @@
 
         <form action="" method="post">
             {% csrf_token %}
-            <input type="submit" value="Delete" class="btn button">
-            <a class="btn tag-button" href="{% url 'board:tag-list' %}">
+            <input type="submit" value="Delete" class="btn button-primary">
+            <a class="btn button-secondary" href="{% url 'board:tag-list' %}">
                 Cancel
             </a>
         </form>

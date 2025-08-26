@@ -106,24 +106,41 @@ body, a, a:hover {
 }
 
 .btn, .btn:hover, .btn:focus, .btn:not(:disabled):not(.disabled):active:focus {
-  margin: 10pt 0;
+  margin: 10pt 5pt 10pt 0;
   font-weight: 500;
   box-shadow: none;
 }
 
-.button:hover, .button:focus {
+.button-primary:hover, .button-primary:focus {
   color: white;
   font-weight: 500;
   background-color: var(--primary-color);
-  opacity: 0.85;
+  opacity: 0.75;
 }
 
-.button, .button:active {
+.button-primary, .button-primary:active {
   color: white;
-  font-size: 1.1em;
   font-weight: 500;
   background-color: var(--primary-color);
   opacity: 1;
+}
+
+.button-secondary {
+  color: white;
+  background-color: var(--primary-color);
+  opacity: 0.65;
+}
+
+.button-secondary:hover, .button-secondary:focus {
+  color: white;
+  background-color: var(--primary-color);
+  opacity: 1;
+}
+
+.button-secondary:active {
+  color: white;
+  background-color: var(--primary-color);
+  opacity: 0.75;
 }
 
 .add-task-button:hover, .add-task-button:focus {
@@ -412,7 +429,7 @@ li .shield-icon {
 }
 
 .tag-brown {
-  background-color: rgba(93, 39, 8, 0.7);
+  background-color: rgba(93, 39, 8, 0.5);
 }
 
 .tag-gray {
@@ -464,25 +481,6 @@ li .shield-icon {
 .tag-row {
   border-bottom: 1px solid var(--secondary-shadow-color);
   padding: 5px 5px 5px 5px;
-}
-
-.tag-button {
-  color: white;
-  font-size: 1em;
-  background-color: var(--primary-color);
-  opacity: 0.55;
-}
-
-.tag-button:hover, .tag-button:focus {
-  color: white;
-  background-color: var(--primary-color);
-  opacity: 0.75;
-}
-
-.tag-button:active {
-  color: white;
-  background-color: var(--primary-color);
-  opacity: 1;
 }
 
 .tag-update {

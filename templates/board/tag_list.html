@@ -6,7 +6,7 @@
     </h1>
 
     <div class="ml-4">
-        <a href="{% url "board:tag-create" %}" class="btn button">
+        <a href="{% url "board:tag-create" %}" class="btn button-primary">
             Add label
         </a>
     </div>
@@ -22,13 +22,13 @@
                 </td>
 
                 <td class="tag-update">
-                    <a href="{% url 'board:tag-update' pk=tag.pk %}" class="btn tag-button">
+                    <a href="{% url 'board:tag-update' pk=tag.pk %}" class="btn button-secondary">
                         Update
                     </a>
                 </td>
 
                 <td class="tag-delete">
-                    <a href="{% url 'board:tag-delete' pk=tag.pk %}" class="btn tag-button">
+                    <a href="{% url 'board:tag-delete' pk=tag.pk %}" class="btn button-secondary">
                         Delete
                     </a>
                 </td>

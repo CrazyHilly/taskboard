@@ -6,20 +6,20 @@
     </h2>
 
     <div class="ml-4">
-        <a href="{% url 'board:task-update' pk=object.pk %}" class="btn button">
+        <a href="{% url 'board:task-update' pk=object.pk %}" class="btn button-primary">
             🖊️ Edit task
         </a>
 
         {% if object.status == "new" %}
-            <a href="#" class="btn button">
+            <a href="#" class="btn button-primary">
                 START PROGRESS
             </a>
         {% elif object.status == "active" %}
-            <a href="#" class="btn button">
+            <a href="#" class="btn button-primary">
                 COMPLETE
             </a>
         {% elif object.status == "completed" %}
-            <a href="#" class="btn button">
+            <a href="#" class="btn button-primary">
                 REOPEN
             </a>
         {% endif %}
