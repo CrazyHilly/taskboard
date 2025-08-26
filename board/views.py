@@ -45,6 +45,14 @@ class TaskCreateView(generic.CreateView):
     success_url = reverse_lazy("board:task-list")
 
 
+class TaskUpdateView(generic.UpdateView):
+    model = Task
+    form_class = TaskCreateForm
+
+    def get_success_url(self):
+        return reverse_lazy("board:task-detail", kwargs={"pk": self.object.pk})
+
+
 class TagListView(generic.ListView):
     model = Tag
 

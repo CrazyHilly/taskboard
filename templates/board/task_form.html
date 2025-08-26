@@ -3,7 +3,7 @@
 
 {% block content %}
     <h1 class="heading">
-        New task
+        {% if task %}Edit task {{ task }}{% else %}New task{% endif %}
     </h1>
 
     <div class="content">

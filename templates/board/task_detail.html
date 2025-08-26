@@ -2,10 +2,14 @@
 
 {% block content %}
     <h2 class="task-detail-heading">
-        {{ object.pk }}: {{ object.name }}
+        {{ object }}
     </h2>
 
     <div class="ml-4">
+        <a href="{% url 'board:task-update' pk=object.pk %}" class="btn button">
+            🖊️ Edit task
+        </a>
+
         {% if object.status == "new" %}
             <a href="#" class="btn button">
                 START PROGRESS
@@ -75,7 +79,7 @@
 
             <td rowspan="2">
                 {% for tag in object.tags.all %}
-                    <span class="btn tag {{ tag.name }}-tag">
+                    <span class="btn tag tag-{{ tag.color }}">
                         {{ tag }}
                     </span>
                 {% empty %}
