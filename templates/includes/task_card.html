@@ -1,6 +1,6 @@
 <a class="task-card mt-1 mb-3 {{ task.get_priority_display }}-card" href="{{ task.get_absolute_url }}">
     <h6 class="mb-2">
-        {{ task.pk }}: {{ task.name }}
+        {{ task }}
     </h6>
 
     <div>
@@ -31,7 +31,7 @@
     {% if task.tags.all %}
         <div>
             {% for tag in task.tags.all %}
-                <span class="font-size-09 btn tag {{ tag.name }}-tag">
+                <span class="font-size-09 btn tag tag-{{ tag.color }}">
                     {{ tag.name }}
                 </span>
             {% endfor %}

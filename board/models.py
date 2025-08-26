@@ -79,6 +79,9 @@ class Task(models.Model):
     class Meta:
         ordering = ["priority", models.F("due_by").asc(nulls_last=True), "created_at"]
 
+    def __str__(self):
+        return f"{self.pk}: {self.name}"
+
 
 class Comment(models.Model):
     task = models.ForeignKey(
