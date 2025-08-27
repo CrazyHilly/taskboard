@@ -1,6 +1,6 @@
-from django.forms import ModelForm, CheckboxSelectMultiple, DateTimeInput
+from django.forms import ModelForm, CheckboxSelectMultiple, DateTimeInput, Textarea
 
-from board.models import Task, Tag
+from board.models import Task, Tag, Comment
 
 
 class TaskCreateForm(ModelForm):
@@ -11,7 +11,7 @@ class TaskCreateForm(ModelForm):
             "tags": CheckboxSelectMultiple, 
             "due_by": DateTimeInput(attrs={"type": "datetime-local"})
             }
-        
+
 
 class TagCreateForm(ModelForm):
     class Meta:
@@ -29,3 +29,17 @@ class TagCreateForm(ModelForm):
             available_colors.append((self.instance.color, self.instance.color))
 
         self.fields["color"].choices = available_colors
+
+
+class CommentForm(ModelForm):
+    class Meta:
+        model = Comment
+        fields = ("comment", )
+        labels = {"comment": ""}
+        widgets = {
+            "comment": Textarea(attrs={
+                "rows": 2,
+                "placeholder": "Add comment here...",
+                "class": "comment-input",
+            }),
+        }

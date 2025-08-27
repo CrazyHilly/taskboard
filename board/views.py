@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views import generic
 
-from board.forms import TaskCreateForm, TagCreateForm
+from board.forms import TaskCreateForm, TagCreateForm, CommentForm
 from board.models import Task, Tag
 
 
@@ -36,8 +36,25 @@ class TaskDetailView(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.update({"today": timezone.now()})
+        context.update({
+            "today": timezone.now(),
+            "comment_form": CommentForm(),
+            })
         return context
+    
+    def post(self, request, *args, **kwargs):
+        task = self.get_object()
+        form = CommentForm(request.POST)
+
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.task = task
+            comment.save()
+            return redirect(reverse_lazy("board:task-detail", kwargs={"pk": task.pk}))
+        
+        context = self.get_context_data()
+        context["comment_form"] = form
+        return self.render_to_response(context)
 
 
 class TaskCreateView(generic.CreateView):

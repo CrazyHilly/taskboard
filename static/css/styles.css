@@ -333,6 +333,7 @@ li .shield-icon {
 }
 
 .task-detail-heading {
+  width: 80%;
   margin: 6px 0 0 23px;
 }
 
@@ -371,6 +372,19 @@ li .shield-icon {
   border-radius: 5px;
   border-collapse: separate;
   margin: 3pt 0 20pt;
+}
+
+.comment-input {
+  font-size: inherit;
+  width: 80vw !important;
+  border: 1pt solid var(--secondary-shadow-color);
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.form-control {
+  display: block;
+  max-width: 80%;
 }
 
 .task-detail-info-table td {

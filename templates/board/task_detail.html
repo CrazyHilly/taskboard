@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 
 {% block content %}
     <h2 class="task-detail-heading">
@@ -140,26 +141,29 @@
 
         <li>
             Comments:
-            <table class="task-detail-info-table">
-                {% for comment in task.comments.all %}
-                    <tr>
-                        <td class="{% if not forloop.last %}pb-4{% endif %}">
-                            >> 
-                            <span class="font-italic text-underline font-size-07">
-                                <u>{{ comment.created_at }}</u>
-                            </span>
-                            <br>
-                            {{ comment.comment|linebreaksbr }}
-                        </td>
-                    </tr>
-                {% empty %}
-                    <tr>
-                        <td class="empty">
-                            Comments placeholder
-                        </td>
-                    </tr>
-                {% endfor %}
-            </table>
+            <form method="post" novalidate class="mt-2">
+                {% csrf_token %}
+                {{ comment_form|crispy }}
+                <input type="submit" value="Add comment" class="btn button-primary mt-0 mb-0">
+            </form>
+
+            {% if task.comments.all %}
+                <table class="task-detail-info-table">
+                    {% for comment in task.comments.all %}
+                        <tr>
+                            <td class="{% if not forloop.last %}pb-4{% endif %}">
+                                >> 
+                                <span class="font-italic text-underline font-size-07">
+                                    <u>{{ comment.created_at }}</u>
+                                </span>
+                                <br>
+                                {{ comment.comment|linebreaksbr }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+            {% endif %}
         </li>
     </ul>
 {% endblock %}
