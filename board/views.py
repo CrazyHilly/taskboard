@@ -1,3 +1,4 @@
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views import generic
@@ -72,3 +73,18 @@ class TagUpdateView(generic.UpdateView):
 class TagDeleteView(generic.DeleteView):
     model = Tag
     success_url = reverse_lazy("board:tag-list")
+
+
+def change_task_status(request, pk):
+    task = Task.objects.get(pk=pk)
+
+    if task.status == "new":
+        task.status = "active"
+    elif task.status == "active":
+        task.status = "completed"
+    else: 
+        task.status = "new"
+
+    task.save()
+
+    return redirect(request.META.get("HTTP_REFERER"), "board:task-detail", pk=pk)

@@ -11,15 +11,21 @@
         </a>
 
         {% if object.status == "new" %}
-            <a href="#" class="btn button-primary">
+            <a href="{% url 'board:change-task-status' pk=object.pk %}" 
+               class="btn button-primary"
+            >
                 START PROGRESS
             </a>
         {% elif object.status == "active" %}
-            <a href="#" class="btn button-primary">
+            <a href="{% url 'board:change-task-status' pk=object.pk %}" 
+               class="btn button-primary"
+               >
                 COMPLETE
             </a>
         {% elif object.status == "completed" %}
-            <a href="#" class="btn button-primary">
+            <a href="{% url 'board:change-task-status' pk=object.pk %}" 
+               class="btn button-primary"
+            >
                 REOPEN
             </a>
         {% endif %}
