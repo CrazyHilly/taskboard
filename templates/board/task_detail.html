@@ -52,7 +52,7 @@
             </td>
 
             <td class="task-detail-cell-date">
-                {{ object.created_at|date:"d.m.Y, H:m" }}
+                {{ object.created_at|date:"d.m.Y, H:i" }}
             </td>
         </tr>
 
@@ -73,7 +73,7 @@
 
             <td class="task-detail-cell-date">
                 {% if object.updated_at %}
-                    {{ object.updated_at|date:"d.m.Y, H:m" }}
+                    {{ object.updated_at|date:"d.m.Y, H:i" }}
                 {% endif %}
             </td>
         </tr>
@@ -99,7 +99,7 @@
             <td class="task-detail-cell-date">
                 {% if object.due_by %}
                     <span class="{% if object.due_by <= today %}text-color-red bold{% endif %}">
-                        {{ object.due_by|date:"d.m.Y, H:m" }}
+                        {{ object.due_by|date:"d.m.Y, H:i" }}
                     </span>
                 {% endif %}
             </td>
@@ -114,7 +114,7 @@
 
             <td class="task-detail-cell-date">
                 {% if object.completed_at %}
-                    {{ object.completed_at|date:"d.m.Y, H:m" }}
+                    {{ object.completed_at|date:"d.m.Y, H:i" }}
                 {% endif %}
             </td>
         </tr>
