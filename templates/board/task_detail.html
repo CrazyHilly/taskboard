@@ -2,28 +2,28 @@
 
 {% block content %}
     <h2 class="task-detail-heading">
-        {{ object }}
+        {{ task }}
     </h2>
 
     <div class="ml-4">
-        <a href="{% url 'board:task-update' pk=object.pk %}" class="btn button-primary">
+        <a href="{% url 'board:task-update' pk=task.pk %}" class="btn button-primary">
             🖊️ Edit task
         </a>
 
-        {% if object.status == "new" %}
-            <a href="{% url 'board:change-task-status' pk=object.pk %}" 
+        {% if task.status == "new" %}
+            <a href="{% url 'board:change-task-status' pk=task.pk %}" 
                class="btn button-primary"
             >
                 START PROGRESS
             </a>
-        {% elif object.status == "active" %}
-            <a href="{% url 'board:change-task-status' pk=object.pk %}" 
+        {% elif task.status == "active" %}
+            <a href="{% url 'board:change-task-status' pk=task.pk %}" 
                class="btn button-primary"
                >
                 COMPLETE
             </a>
-        {% elif object.status == "completed" %}
-            <a href="{% url 'board:change-task-status' pk=object.pk %}" 
+        {% elif task.status == "completed" %}
+            <a href="{% url 'board:change-task-status' pk=task.pk %}" 
                class="btn button-primary"
             >
                 REOPEN
@@ -43,8 +43,8 @@
                 Priority: 
             </td>
 
-            <td class="{{ object.get_priority_display }}-text semi-bold">
-                {{ object.get_priority_display.title }}
+            <td class="{{ task.get_priority_display }}-text semi-bold">
+                {{ task.get_priority_display.title }}
             </td>
 
             <td class="pl-4">
@@ -52,7 +52,7 @@
             </td>
 
             <td class="task-detail-cell-date">
-                {{ object.created_at|date:"d.m.Y, H:i" }}
+                {{ task.created_at|date:"d.m.Y, H:i" }}
             </td>
         </tr>
 
@@ -62,8 +62,8 @@
             </td>
 
             <td>
-                <span class="btn status {{ object.status }}-status">
-                    {{ object.get_status_display }}
+                <span class="btn status {{ task.status }}-status">
+                    {{ task.get_status_display }}
                 </span>
             </td>
 
@@ -72,8 +72,8 @@
             </td>
 
             <td class="task-detail-cell-date">
-                {% if object.updated_at %}
-                    {{ object.updated_at|date:"d.m.Y, H:i" }}
+                {% if task.updated_at %}
+                    {{ task.updated_at|date:"d.m.Y, H:i" }}
                 {% endif %}
             </td>
         </tr>
@@ -84,7 +84,7 @@
             </td>
 
             <td rowspan="2">
-                {% for tag in object.tags.all %}
+                {% for tag in task.tags.all %}
                     <span class="btn tag tag-{{ tag.color }}">
                         {{ tag }}
                     </span>
@@ -97,9 +97,9 @@
             </td>
 
             <td class="task-detail-cell-date">
-                {% if object.due_by %}
-                    <span class="{% if object.due_by <= today %}text-color-red bold{% endif %}">
-                        {{ object.due_by|date:"d.m.Y, H:i" }}
+                {% if task.due_by %}
+                    <span class="{% if task.due_by <= today %}text-color-red bold{% endif %}">
+                        {{ task.due_by|date:"d.m.Y, H:i" }}
                     </span>
                 {% endif %}
             </td>
@@ -113,8 +113,8 @@
             </td>
 
             <td class="task-detail-cell-date">
-                {% if object.completed_at %}
-                    {{ object.completed_at|date:"d.m.Y, H:i" }}
+                {% if task.completed_at %}
+                    {{ task.completed_at|date:"d.m.Y, H:i" }}
                 {% endif %}
             </td>
         </tr>
@@ -125,9 +125,9 @@
             Description:
             <table class="task-detail-info-table">
                 <tr>
-                    {% if object.description %}
+                    {% if task.description %}
                         <td>
-                            {{ object.description|linebreaksbr }}
+                            {{ task.description|linebreaksbr }}
                         </td>
                     {% else %}
                         <td class="empty">
@@ -141,7 +141,7 @@
         <li>
             Comments:
             <table class="task-detail-info-table">
-                {% for comment in object.comments.all %}
+                {% for comment in task.comments.all %}
                     <tr>
                         <td class="{% if not forloop.last %}pb-4{% endif %}">
                             >> 
