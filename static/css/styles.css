@@ -387,6 +387,8 @@ li .shield-icon {
 .form-control {
   display: block;
   max-width: 80%;
+  border: 1pt solid var(--secondary-shadow-color);
+  border-radius: 5px;
 }
 
 .task-detail-info-table td {
