@@ -107,37 +107,40 @@ body, a, a:hover {
 
 .btn, .btn:hover, .btn:focus, .btn:not(:disabled):not(.disabled):active:focus {
   margin: 10pt 5pt 10pt 0;
-  font-weight: 500;
+  font-weight: 700;
   box-shadow: none;
 }
 
 .button-primary:hover, .button-primary:focus {
   color: white;
-  font-weight: 500;
+  font-weight: 700;
   background-color: var(--primary-color);
   opacity: 0.75;
 }
 
 .button-primary, .button-primary:active {
   color: white;
-  font-weight: 500;
+  font-weight: 700;
   background-color: var(--primary-color);
   opacity: 1;
 }
 
 .button-secondary {
+  font-weight: 500;
   color: white;
   background-color: var(--primary-color);
   opacity: 0.65;
 }
 
 .button-secondary:hover, .button-secondary:focus {
+  font-weight: 500;
   color: white;
   background-color: var(--primary-color);
   opacity: 1;
 }
 
 .button-secondary:active {
+  font-weight: 500;
   color: white;
   background-color: var(--primary-color);
   opacity: 0.75;
@@ -376,7 +379,6 @@ li .shield-icon {
 
 .comment-input {
   font-size: inherit;
-  width: 80vw !important;
   border: 1pt solid var(--secondary-shadow-color);
   border-radius: 5px;
   box-sizing: border-box;
