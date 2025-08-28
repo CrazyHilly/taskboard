@@ -7,10 +7,6 @@
     </h2>
 
     <div class="ml-4">
-        <a href="{% url 'board:task-update' pk=task.pk %}" class="btn button-primary">
-            🖊️ Edit task
-        </a>
-
         {% if task.status == "new" %}
             <a href="{% url 'board:change-task-status' pk=task.pk %}" 
                class="btn button-primary"
@@ -30,6 +26,14 @@
                 REOPEN
             </a>
         {% endif %}
+
+        <a href="{% url 'board:task-update' pk=task.pk %}" class="btn button-secondary">
+            🖊️ Edit task
+        </a>
+
+        <a href="{% url 'board:task-update' pk=task.pk %}" class="btn button-secondary">
+            🗑 Delete task
+        </a>
     </div>
 
     <table class="task-detail-table ml-4" style="width:100%">

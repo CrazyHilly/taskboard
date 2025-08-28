@@ -71,6 +71,11 @@ class TaskUpdateView(generic.UpdateView):
         return reverse_lazy("board:task-detail", kwargs={"pk": self.object.pk})
 
 
+class TaskDeleteView(generic.DeleteView):
+    model = Task
+    success_url = reverse_lazy("board:task-list")
+
+
 class TagListView(generic.ListView):
     model = Tag
 
