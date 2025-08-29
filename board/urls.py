@@ -2,7 +2,7 @@ from django.urls import path
 
 from board.views import TagCreateView, TagDeleteView, TagListView, TagUpdateView, \
                         TaskDetailView, TaskListView, TaskCreateView, TaskUpdateView, \
-                        TaskDeleteView, change_task_status
+                        TaskDeleteView, ChangeTaskStatusView
 
 
 urlpatterns = [
@@ -12,7 +12,7 @@ urlpatterns = [
     path("tasks/<int:pk>/delete/", TaskDeleteView.as_view(), name="task-delete"),
     path(
         "tasks/<int:pk>/change-status/", 
-        change_task_status, 
+        ChangeTaskStatusView.as_view(), 
         name="change-task-status"
         ),
     path("tasks/new/", TaskCreateView.as_view(), name="task-create"),

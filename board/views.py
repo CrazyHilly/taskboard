@@ -1,7 +1,7 @@
 from django.shortcuts import redirect
 from django.urls import reverse_lazy, reverse
 from django.utils import timezone
-from django.views import generic
+from django.views import generic, View
 
 from board.forms import TaskCreateForm, TagCreateForm, CommentForm
 from board.models import Task, Tag
@@ -97,18 +97,22 @@ class TagDeleteView(generic.DeleteView):
     success_url = reverse_lazy("board:tag-list")
 
 
-def change_task_status(request, pk):
-    task = Task.objects.get(pk=pk)
-
-    if task.status == "new":
-        task.status = "active"
-    elif task.status == "active":
-        task.status = "completed"
-    else: 
-        task.status = "new"
-
-    task.save()
+class ChangeTaskStatusView(View):
+    def get(self, request, pk):
+        return redirect("board:task-detail", pk=pk)
     
-    return redirect(request.META.get(
-        "HTTP_REFERER", reverse("board:task-detail", kwargs={"pk": pk})
-        ))
+    def post(self, request, pk):
+        task = Task.objects.get(pk=pk)
+
+        if task.status == "new":
+            task.status = "active"
+        elif task.status == "active":
+            task.status = "completed"
+        else: 
+            task.status = "new"
+
+        task.save()
+        
+        return redirect(request.META.get(
+            "HTTP_REFERER", reverse("board:task-detail", kwargs={"pk": pk})
+            ))

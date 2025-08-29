@@ -7,25 +7,18 @@
     </h2>
 
     <div class="ml-4">
-        {% if task.status == "new" %}
-            <a href="{% url 'board:change-task-status' pk=task.pk %}" 
-               class="btn button-primary"
-            >
-                START PROGRESS
-            </a>
-        {% elif task.status == "active" %}
-            <a href="{% url 'board:change-task-status' pk=task.pk %}" 
-               class="btn button-primary"
-               >
-                COMPLETE
-            </a>
-        {% elif task.status == "completed" %}
-            <a href="{% url 'board:change-task-status' pk=task.pk %}" 
-               class="btn button-primary"
-            >
-                REOPEN
-            </a>
-        {% endif %}
+        <form action="{% url 'board:change-task-status' pk=task.pk %}" method="post" style="display:inline">
+            {% csrf_token %}
+            <button type="submit" class="btn button-primary">
+                {% if task.status == "new" %}
+                    START PROGRESS
+                {% elif task.status == "active" %}
+                    COMPLETE
+                {% else %}
+                    REOPEN
+                {% endif %}
+            </button> 
+        </form>
 
         <a href="{% url 'board:task-update' pk=task.pk %}" class="btn button-secondary">
             🖊️ Edit task
