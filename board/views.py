@@ -1,5 +1,5 @@
 from django.shortcuts import redirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.utils import timezone
 from django.views import generic
 
@@ -108,5 +108,7 @@ def change_task_status(request, pk):
         task.status = "new"
 
     task.save()
-
-    return redirect(request.META.get("HTTP_REFERER"), "board:task-detail", pk=pk)
+    
+    return redirect(request.META.get(
+        "HTTP_REFERER", reverse("board:task-detail", kwargs={"pk": pk})
+        ))
