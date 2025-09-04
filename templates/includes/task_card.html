@@ -1,0 +1,40 @@
+<a class="task-card mt-1 mb-3 {{ task.get_priority_display }}-card" href="{{ task.get_absolute_url }}">
+    <h6 class="mb-2">
+        {{ task }}
+    </h6>
+
+    <div>
+        <div class="font-size-08">
+            Created: {{ task.created_at|date:"d.m.Y" }}
+            <br>
+            {% if task.updated_at %}
+                Updated: {{ task.updated_at|date:"d.m.Y" }}
+            {% endif %}
+        </div>
+
+        {% if task.due_by %}
+            <div class="semi-bold font-size-09 mt-2">
+                Due by: 
+                <span class="{% if task.due_by <= today %}text-color-red bold{% endif %}">
+                    {{ task.due_by|date:"d.m.Y" }}
+                </span>
+            </div>
+        {% endif %}
+
+        {% if task.status == "completed" %}
+            <div class="semi-bold font-size-09">
+                Completed: {{ task.completed_at|date:"d.m.Y" }}
+            </div>
+        {% endif %}
+    </div>
+
+    {% if task.tags.all %}
+        <div>
+            {% for tag in task.tags.all %}
+                <span class="font-size-09 btn tag tag-{{ tag.color }}">
+                    {{ tag.name }}
+                </span>
+            {% endfor %}
+        </div>
+    {% endif%}
+</a>

@@ -1,0 +1,24 @@
+<ul class="sidebar-nav">
+  {% comment %} {% if user.is_authenticated %} {% endcomment %}
+    <li class="sidebar-button">
+        <a href="{% url 'board:task-create' %}" class="btn add-task-button">
+            +
+        </a>
+    </li>
+    
+    <li>
+      <a href="{% url 'board:task-list' %}"
+         class="{% if request.resolver_match.view_name == 'board:task-list' %}
+                sidebar-nav-active{% endif %}">
+        Task board
+      </a>
+    </li>
+
+    <li>
+      <a href="{% url 'board:tag-list' %}"
+         class="{% if request.resolver_match.view_name == 'board:tag-list' %}
+                sidebar-nav-active{% endif %}">
+        Labels
+      </a>
+    </li>
+</ul>

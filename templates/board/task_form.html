@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+    <h1 class="heading">
+        {% if task %}Edit task {{ task }}{% else %}New task{% endif %}
+    </h1>
+
+    <div class="content">
+        <form action="" method="post" novalidate>
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input type="submit" value="Save" class="btn button-primary">
+        </form>
+    </div>
+{% endblock %}

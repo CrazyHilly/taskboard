@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 class="task-detail-heading">
+        Labels
+    </h1>
+
+    <div class="ml-4">
+        <a href="{% url "board:tag-create" %}" class="btn button-primary">
+            Add label
+        </a>
+    </div>
+
+    <table class="col-5 tag-table content">
+        {% for tag in tag_list %}
+            <tr class="tag-row">
+                <td>
+                    <span class="empty tag-{{ tag.color }}">
+                        W
+                    </span>
+                    &nbsp;{{ tag }}
+                </td>
+
+                <td class="tag-update">
+                    <a href="{% url 'board:tag-update' pk=tag.pk %}" class="btn button-secondary">
+                        Update
+                    </a>
+                </td>
+
+                <td class="tag-delete">
+                    <a href="{% url 'board:tag-delete' pk=tag.pk %}" class="btn button-secondary">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+        {% empty %}
+        {% endfor %}
+    </table>
+{% endblock %}

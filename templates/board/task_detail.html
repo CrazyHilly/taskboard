@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+    <h2 class="task-detail-heading">
+        {{ task }}
+    </h2>
+
+    <div class="ml-4">
+        <form action="{% url 'board:change-task-status' pk=task.pk %}" method="post" style="display:inline">
+            {% csrf_token %}
+            <button type="submit" class="btn button-primary">
+                {% if task.status == "new" %}
+                    START PROGRESS
+                {% elif task.status == "active" %}
+                    COMPLETE
+                {% else %}
+                    REOPEN
+                {% endif %}
+            </button> 
+        </form>
+
+        <a href="{% url 'board:task-update' pk=task.pk %}" class="btn button-secondary">
+            🖊️ Edit task
+        </a>
+
+        <a href="{% url 'board:task-delete' pk=task.pk %}" class="btn button-secondary">
+            🗑 Delete task
+        </a>
+    </div>
+
+    <table class="task-detail-table ml-4" style="width:100%">
+        <colgroup>
+            <col style="width:15%">
+            <col style="width:20%" class="task-list-separator">
+            <col style="width:15%">
+        </colgroup>
+
+        <tr>
+            <td>
+                Priority: 
+            </td>
+
+            <td class="{{ task.get_priority_display }}-text semi-bold">
+                {{ task.get_priority_display.title }}
+            </td>
+
+            <td class="pl-4">
+                Created: 
+            </td>
+
+            <td class="task-detail-cell-date">
+                {{ task.created_at|date:"d.m.Y, H:i" }}
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Status: 
+            </td>
+
+            <td>
+                <span class="btn status {{ task.status }}-status">
+                    {{ task.get_status_display }}
+                </span>
+            </td>
+
+            <td class="pl-4">
+                Updated: 
+            </td>
+
+            <td class="task-detail-cell-date">
+                {% if task.updated_at %}
+                    {{ task.updated_at|date:"d.m.Y, H:i" }}
+                {% endif %}
+            </td>
+        </tr>
+
+        <tr class="task-detail-row ">
+            <td class="task-detail-cell">
+                Tags: 
+            </td>
+
+            <td rowspan="2">
+                {% for tag in task.tags.all %}
+                    <span class="btn tag tag-{{ tag.color }}">
+                        {{ tag }}
+                    </span>
+                {% empty %}
+                {% endfor %}
+            </td>
+
+            <td class="pl-4">
+                Due by: 
+            </td>
+
+            <td class="task-detail-cell-date">
+                {% if task.due_by %}
+                    <span class="{% if task.due_by <= today %}text-color-red bold{% endif %}">
+                        {{ task.due_by|date:"d.m.Y, H:i" }}
+                    </span>
+                {% endif %}
+            </td>
+        </tr>
+
+        <tr>
+            <td></td>
+
+            <td class="pl-4">
+                Completed:
+            </td>
+
+            <td class="task-detail-cell-date">
+                {% if task.completed_at %}
+                    {{ task.completed_at|date:"d.m.Y, H:i" }}
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+
+    <ul class="task-detail-info ml-4">
+        <li>
+            Description:
+            <table class="task-detail-info-table">
+                <tr>
+                    {% if task.description %}
+                        <td>
+                            {{ task.description|linebreaksbr }}
+                        </td>
+                    {% else %}
+                        <td class="empty">
+                            Description placeholder
+                        </td>
+                    {% endif %}
+                </tr>
+            </table>
+        </li>
+
+        <li>
+            Comments:
+            <form method="post" novalidate class="mt-2">
+                {% csrf_token %}
+                {{ comment_form|crispy }}
+                <input type="submit" value="Add comment" class="btn button-primary mt-0 mb-0">
+            </form>
+
+            {% if task.comments.all %}
+                <table class="task-detail-info-table">
+                    {% for comment in task.comments.all %}
+                        <tr>
+                            <td class="{% if not forloop.last %}pb-4{% endif %}">
+                                >> 
+                                <span class="font-italic text-underline font-size-07">
+                                    <u>{{ comment.created_at }}</u>
+                                </span>
+                                <br>
+                                {{ comment.comment|linebreaksbr }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+            {% endif %}
+        </li>
+    </ul>
+{% endblock %}
